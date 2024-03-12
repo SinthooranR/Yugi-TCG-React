@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Minimal Card Styles */
+
+.minimalCardContainer {
+  cursor: pointer;
+}
+
+.minimalCardImageContainer {
+  position: relative;
+  width: 350px; /* Set a width for the container */
+  height: 500px; /* Set a height for the container */
+}
+
+.minimalCardImage {
+  transform: scale(1);
+  transition: transform 0.3s ease-in-out;
+  object-fit: contain;
+  &:hover {
+    transform: scale(1.025);
+    transition: transform 0.3s ease-in-out;
+  }
+}
+
+.cardPageCardContainer {
+  height: 75vh;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    .cardPageCardContainer {
+      width: 95%;
+    }
+  }
+}
