@@ -1,8 +1,8 @@
-import { getAllCards, getCardById } from "@/utility/getCards";
+import { getAllCards, getCardById } from "@/util/getCards";
 import React, { FC } from "react";
 import { Card } from "../../../../interfaces";
 import Image from "next/image";
-import { propertiesToShow } from "@/utility/constants";
+import { propertiesToShow } from "@/util/constants";
 import MinimalCard from "@/components/Card";
 
 interface PageProps {
@@ -25,7 +25,7 @@ const CardInfo: FC<PageProps> = async ({ params }) => {
     .slice(0, 15);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 py-12">
       <div className="flex justify-center gap-5 py-10 flex-wrap items-start">
         <div className="cardPageCardContainer">
           <Image

@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { getAllCards } from "@/utility/getCards";
+import { getAllCards } from "@/util/getCards";
 import { Card } from "../../../interfaces";
 import LoadingSpinner from "./loading";
 import CardList from "./_components/CardList";

@@ -8,6 +8,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    API_URL_DEV: process.env.NEXT_PUBLIC_API_URL_DEV,
+  },
 };
 
 module.exports = nextConfig;

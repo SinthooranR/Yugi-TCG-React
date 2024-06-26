@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const MinimalCard: FC<{ card: Card }> = ({ card }) => {
   return (
-    <Link href={`cards/${card.id}`}>
+    <Link href={`/cards/${card.id}`}>
       <div className="minimalCardContainer">
         <div className="minimalCardImageContainer">
           <Image
@@ -16,8 +16,6 @@ const MinimalCard: FC<{ card: Card }> = ({ card }) => {
             priority
             sizes=""
           />
-          {/* <img     className="minimalCardImage"         src={card.card_images[0].image_url}
-            alt={card.name} /> */}
         </div>
       </div>
     </Link>

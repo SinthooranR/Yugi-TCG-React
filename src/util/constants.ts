@@ -1,4 +1,4 @@
-export const apiUrl = `https://db.ygoprodeck.com/api/v7/cardinfo.php`;
+export const apiUrlYtcg = `https://db.ygoprodeck.com/api/v7/cardinfo.php`;
 
 export const propertiesToShow = [
   { key: "level", label: "Level" },

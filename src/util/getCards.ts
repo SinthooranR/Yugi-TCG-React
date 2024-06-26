@@ -1,8 +1,8 @@
-import { apiUrl } from "./constants";
+import { apiUrlYtcg } from "./constants";
 
 export const getAllCards = async (variant?: boolean) => {
   try {
-    const response = await fetch(apiUrl, { cache: "no-store" });
+    const response = await fetch(apiUrlYtcg, { cache: "no-store" });
 
     if (!response.ok) {
       throw new Error("Failed to fetch cards");
@@ -18,7 +18,9 @@ export const getAllCards = async (variant?: boolean) => {
 
 export const getCardById = async (id: number) => {
   try {
-    const response = await fetch(`${apiUrl}?id=${id}`, { cache: "no-store" });
+    const response = await fetch(`${apiUrlYtcg}?id=${id}`, {
+      cache: "no-store",
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch cards");

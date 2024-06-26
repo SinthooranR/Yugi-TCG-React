@@ -27,7 +27,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   };
 
   return (
-    <div>
+    <div className="py-12">
       <Pagination
         itemsPerPage={cardsPerPage}
         totalItems={totalFilteredCards}
