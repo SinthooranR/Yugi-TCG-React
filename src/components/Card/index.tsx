@@ -12,9 +12,12 @@ const MinimalCard: FC<{ card: Card }> = ({ card }) => {
             src={card.card_images[0].image_url}
             alt={card.name}
             className="minimalCardImage"
-            layout="fill"
+            fill
+            priority
             sizes=""
           />
+          {/* <img     className="minimalCardImage"         src={card.card_images[0].image_url}
+            alt={card.name} /> */}
         </div>
       </div>
     </Link>

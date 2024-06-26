@@ -7,7 +7,7 @@ import Pagination from "./paginator";
 
 const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage] = useState(20);
+  const [cardsPerPage] = useState(100);
   const [searchTerm, setSearchTerm] = useState("");
 
   const indexOfLastCard = currentPage * cardsPerPage;

@@ -31,8 +31,9 @@ const CardInfo: FC<PageProps> = async ({ params }) => {
           <Image
             src={card.card_images[0].image_url}
             alt={card.name}
-            layout="fill"
+            fill
             objectFit="contain"
+            priority
           />
         </div>
         <div className="max-w-sm flex flex-col gap-5 items-start py-5">
