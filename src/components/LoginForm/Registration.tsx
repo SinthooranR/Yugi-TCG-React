@@ -1,25 +1,35 @@
-import React, { FormEvent, useState } from "react";
+import React, { FC, FormEvent, useState } from "react";
 import Input from "./Input";
+import { registerUser } from "@/util/userMethods";
+import { useRouter } from "next/navigation";
 
-const Registration = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+interface RegisterProps {
+  hasRegistered: (val: boolean) => void;
+}
 
-  const submitForm = (e: FormEvent<HTMLFormElement>) => {
-    const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
+const Registration: FC<RegisterProps> = ({ hasRegistered }) => {
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-      const formData = new FormData(e.currentTarget);
+    const formData = new FormData(e.currentTarget);
 
-      const email = formData.get("email") as string;
-      const password = formData.get("password") as string;
+    const username = formData.get("username") as string;
+    const email = formData.get("email") as string;
+    const confirmEmail = formData.get("confirmEmail") as string;
+    const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
 
-      // const response = await loginUser({ email, password });
+    const response = await registerUser({
+      username,
+      email,
+      confirmEmail,
+      password,
+      confirmPassword,
+    });
 
-      // if (response) {
-      //   login(response);
-      // }
-    };
+    if (response) {
+      hasRegistered(true);
+    }
   };
 
   return (
