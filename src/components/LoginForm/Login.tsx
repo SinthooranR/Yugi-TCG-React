@@ -1,9 +1,7 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import Input from "./Input";
 import { loginUser } from "@/util/userMethods";
 import { useAuth } from "@/util/auth-context";
-
-interface LoginProps {}
 
 const Login = () => {
   const { login } = useAuth();

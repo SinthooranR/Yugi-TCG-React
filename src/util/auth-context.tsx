@@ -26,7 +26,7 @@ interface AuthProviderProps {
 }
 
 interface User {
-  userId?: number;
+  userId?: string;
   userName?: string;
   email?: string;
   token: string;
@@ -47,7 +47,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     if (token) {
       const decodedUser = parseJwt(token);
       setUser({
-        userId: Number(decodedUser.userId),
+        userId: decodedUser.userId,
         userName: decodedUser.userName,
         email: decodedUser.email,
         token,
@@ -58,7 +58,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const login = (token: string) => {
     const decodedUser = parseJwt(token);
     setUser({
-      userId: Number(decodedUser.userId),
+      userId: decodedUser.userId,
       userName: decodedUser.userName,
       email: decodedUser.email,
       token,

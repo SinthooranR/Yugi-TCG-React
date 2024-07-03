@@ -16,6 +16,7 @@ const Navbar = () => {
         <nav className="flex w-full justify-evenly items-center fixed z-50 p-4 bg-slate-900 text-white">
           <div className="flex gap-6">
             <Link href="/cards">Cards</Link>
+            <Link href="/decks">My Decks</Link>
             <Link href="/discussions">Discussion</Link>
           </div>
           <div className="flex gap-6">
