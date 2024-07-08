@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Card } from "../../../interfaces";
 import Image from "next/image";
 import Link from "next/link";
+import useStore from "@/store";
 
 const MinimalCard: FC<{
   card: Card;
@@ -35,10 +36,20 @@ const MinimalCard: FC<{
     </div>
   );
 
+  // only works in deck
+  const { cards, addCard } = useStore((state) => ({
+    cards: state.cards,
+    addCard: state.addCard,
+  }));
+
+  const addCardToDeck = () => {
+    addCard(card);
+  };
+
   return (
     <>
       {forDeck ? (
-        <div>{child}</div>
+        <div onClick={() => addCardToDeck()}>{child}</div>
       ) : (
         <Link href={`/cards/${card.id}`}>{child}</Link>
       )}

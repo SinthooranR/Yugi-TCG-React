@@ -31,6 +31,12 @@ export interface Card {
   ];
 }
 
+export interface Deck {
+  id: number;
+  name: string;
+  cards: Card[];
+}
+
 export interface Post {
   id: number;
   name: string;
