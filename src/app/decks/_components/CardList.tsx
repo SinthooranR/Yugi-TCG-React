@@ -3,7 +3,7 @@
 import React, { FC, Fragment, useState } from "react";
 import { Card } from "../../../../interfaces";
 import MinimalCard from "../../../components/Card";
-import Pagination from "./paginator";
+import Pagination from "@/app/cards/_components/paginator";
 
 const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,7 +27,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   };
 
   return (
-    <div className="py-12">
+    <div className="py-12 w-1/2 h-screen overflow-y-scroll">
       <Pagination
         itemsPerPage={cardsPerPage}
         totalItems={totalFilteredCards}
@@ -39,7 +39,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
       <div className="flex flex-wrap gap-4 justify-center">
         {filteredCards.slice(indexOfFirstCard, indexOfLastCard).map((card) => (
           <Fragment key={card.id}>
-            <MinimalCard card={card} className="animate-fadeIn" />
+            <MinimalCard card={card} className="animate-fadeIn" forDeck />
           </Fragment>
         ))}
       </div>

@@ -1,0 +1,20 @@
+"use client";
+
+import React, { FC, useState } from "react";
+import CardList from "./CardList";
+import { Card } from "../../../../interfaces";
+import DeckSelector from "./DeckSelector";
+
+const DeckBuilderPage: FC<{ cards: Card[] }> = ({ cards }) => {
+  const [deckId, setDeckId] = useState<number>();
+
+  console.log("ID:", deckId);
+  return (
+    <div className="flex justify-start divide-x divide-slate-950">
+      <CardList fetchedCards={cards} />
+      <DeckSelector onClick={(id) => setDeckId(id)} />
+    </div>
+  );
+};
+
+export default DeckBuilderPage;

@@ -31,6 +31,16 @@ export interface Card {
   ];
 }
 
+export interface Post {
+  id: number;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  replies: [];
+  postRatings: [];
+}
+
 export interface FilterEventData {
   selected: string;
   filterType: string;

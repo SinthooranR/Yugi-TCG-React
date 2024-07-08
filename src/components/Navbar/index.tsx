@@ -7,7 +7,7 @@ import React from "react";
 
 const Navbar = () => {
   const path = usePathname();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const disabledList = ["/", "/login"];
 
   return (
@@ -16,13 +16,15 @@ const Navbar = () => {
         <nav className="flex w-full justify-evenly items-center fixed z-50 p-4 bg-slate-900 text-white">
           <div className="flex gap-6">
             <Link href="/cards">Cards</Link>
-            <Link href="/decks">My Decks</Link>
+            {user && <Link href="/decks">My Decks</Link>}
             <Link href="/discussions">Discussion</Link>
           </div>
-          <div className="flex gap-6">
-            <Link href="/profile">Profile</Link>
-            <button onClick={() => logout()}>Logout</button>
-          </div>
+          {user && (
+            <div className="flex gap-6">
+              <Link href="/profile">Profile</Link>
+              <button onClick={() => logout()}>Logout</button>
+            </div>
+          )}
         </nav>
       )}
     </>
