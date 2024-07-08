@@ -9,7 +9,6 @@ import DeckManager from "./DeckManager";
 const DeckBuilderPage: FC<{ cards: Card[] }> = ({ cards }) => {
   const [deckId, setDeckId] = useState<number>();
 
-  console.log("ID:", deckId);
   return (
     <div className="flex justify-start divide-x divide-slate-950">
       <CardList fetchedCards={cards} />

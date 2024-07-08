@@ -1,6 +1,7 @@
+"use client";
+
 import React, { FC } from "react";
 import { Card } from "../../../interfaces";
-import Image from "next/image";
 import Link from "next/link";
 import useStore from "@/store";
 

@@ -23,7 +23,7 @@ export const getDecksByUserId = async (userId?: string) => {
 
 export const getDecksById = async (deckId?: number) => {
   try {
-    const response = await fetch(`${apiUrl}/api/Deck?deckId=${deckId}`);
+    const response = await fetch(`${apiUrl}/api/Deck/deckId?deckId=${deckId}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
