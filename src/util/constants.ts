@@ -10,3 +10,16 @@ export const propertiesToShow = [
   { key: "archetype", label: "Archetype" },
   { key: "desc", label: "Description" },
 ];
+
+export const getAttributeImage = (attribute?: string, frameType?: string) => {
+  let imgVal;
+
+  if (frameType === "spell") {
+    imgVal = "SPELL";
+  } else if (frameType === "trap") {
+    imgVal = "TRAP";
+  } else {
+    imgVal = attribute;
+  }
+  return `/images/icons/${imgVal}.svg`;
+};

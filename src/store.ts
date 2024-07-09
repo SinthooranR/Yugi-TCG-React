@@ -14,10 +14,14 @@ const useStore = create<StoreState>()((set) => ({
   setCards: (cards) => set({ cards }),
   addCard: (card) =>
     set((state) => {
-      if (state.cards.length < 40) {
+      const sameIdCards = state.cards.filter((c) => c.id === card.id).length;
+
+      if (state.cards.length < 60 && sameIdCards < 3) {
         return { cards: [...state.cards, card] };
       } else {
-        console.log("Maximum card limit reached (40).");
+        state.cards.length >= 60
+          ? "Maximum card limit reached (60)."
+          : "Cannot add more than 3 of the same cards.";
         return state;
       }
     }),

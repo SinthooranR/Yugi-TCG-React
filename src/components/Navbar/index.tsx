@@ -19,12 +19,17 @@ const Navbar = () => {
             {user && <Link href="/decks">My Decks</Link>}
             <Link href="/discussions">Discussion</Link>
           </div>
-          {user && (
-            <div className="flex gap-6">
-              <Link href="/profile">Profile</Link>
-              <button onClick={() => logout()}>Logout</button>
-            </div>
-          )}
+
+          <div className="flex gap-6">
+            {user ? (
+              <>
+                <Link href="/profile">Profile</Link>
+                <button onClick={() => logout()}>Logout</button>{" "}
+              </>
+            ) : (
+              <Link href="/login">Login</Link>
+            )}
+          </div>
         </nav>
       )}
     </>

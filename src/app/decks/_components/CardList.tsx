@@ -27,7 +27,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   };
 
   return (
-    <div className="py-12 w-1/2 h-screen overflow-y-scroll">
+    <div className="py-12 w-full h-[50vh] overflow-y-scroll md:w-1/2 md:h-screen">
       <Pagination
         itemsPerPage={cardsPerPage}
         totalItems={totalFilteredCards}

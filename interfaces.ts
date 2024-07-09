@@ -29,6 +29,11 @@ export interface Card {
       amazon_price: number;
     }
   ];
+
+  //Additional modified properties with .NET API
+  urlId?: number;
+  imageUrl?: string;
+  shopUrl?: string;
 }
 
 export interface Deck {
