@@ -4,6 +4,8 @@ import { getDecksById, updateDeck } from "@/util/getDecks";
 import { Card, Deck } from "../../../../interfaces";
 import DeckViewCard from "@/components/Card/DeckViewCard";
 import { useAuth } from "@/util/auth-context";
+import ListIcon from "@/components/Icons/ListIcon";
+import GridIcon from "@/components/Icons/GridIcon";
 
 const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
   id,
@@ -19,6 +21,7 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
   }));
 
   const [deckName, setDeckName] = useState<string>("");
+  const [isListView, setIsListView] = useState<boolean>(true);
 
   useEffect(() => {
     const loadDeck = async () => {
@@ -41,44 +44,66 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
 
   return (
     <div className="h-[50vh] overflow-y-scroll w-full py-16 flex flex-col justify-start items-center border-left md:w-1/2 md:h-screen">
-      <div className="flex justify-evenly gap-16">
-        <h1 className="text-2xl">{deckName || "Deck"}</h1>
-        <div className="flex gap-2">
+      <div className="flex w-full justify-between items-center gap-8 px-24">
+        <div className="flex gap-4">
           <button
-            className="bg-red-200 text-white p-2 rounded"
+            onClick={() => setIsListView(true)}
+            className={`${isListView && `bg-violet-600 px-2 rounded`}`}
+          >
+            <ListIcon />
+          </button>
+          <button
+            onClick={() => setIsListView(false)}
+            className={`${!isListView && `bg-violet-600 px-2 rounded`}`}
+          >
+            <GridIcon />
+          </button>
+        </div>
+        <h1 className="text-2xl">{deckName || "Deck"}</h1>
+        <div className="flex flex-row gap-2 items-center">
+          <button
+            className="px-4 py-2 rounded-md bg-red-500 hover:bg-red-600 text-white"
             onClick={() => goBack()}
           >
-            CANCEL
+            Cancel
           </button>
+
           <button
-            className="bg-blue-400 text-white p-2 rounded"
+            className="px-4 py-2 rounded-md bg-violet-500 hover:bg-violet-600 text-white"
             onClick={() => updateCards()}
           >
-            SAVE CHANGES
+            Save
           </button>
         </div>
       </div>
-      <h2 className="pt-8">Card Count: {cards.length}/60</h2>
-      <div className="w-2/3 flex flex-row justify-evenly gap-4 items-start gap-4">
-        <div className="w-1/3">
-          <h1>Attribute</h1>
+
+      {isListView && (
+        <div className="w-2/3 flex flex-row justify-evenly gap-4 items-center gap-4 pt-8">
+          <div className="w-1/4">
+            <h1>Attribute</h1>
+          </div>
+          <div className="w-1/4">
+            <h1>Name</h1>
+          </div>
+          <div className="w-1/4">
+            <h1>Type</h1>
+          </div>
+          <div className="w-1/4 text-center">
+            <h2>Cards: {cards.length}/60</h2>
+          </div>
         </div>
-        <div className="w-1/3">
-          <h1>Name</h1>
-        </div>
-        <div className="w-1/3">
-          <h1>Type</h1>
-        </div>
-        <div>
-          <h1></h1>
-        </div>
-      </div>
-      <div className="py-8 w-2/3">
+      )}
+
+      <div
+        className={`py-4 ${
+          isListView ? `w-2/3` : `flex flex-wrap gap-4 justify-center`
+        }`}
+      >
         {cards &&
           cards.length > 0 &&
           cards.map((card: Card, index) => (
             <Fragment key={index}>
-              <DeckViewCard card={card} index={index} />
+              <DeckViewCard card={card} index={index} isListView={isListView} />
             </Fragment>
           ))}
       </div>
