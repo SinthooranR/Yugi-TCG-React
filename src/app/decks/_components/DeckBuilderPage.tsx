@@ -10,10 +10,12 @@ const DeckBuilderPage: FC<{ cards: Card[] }> = ({ cards }) => {
   const [deckId, setDeckId] = useState<number | null>();
 
   return (
-    <div className="flex flex-col justify-start divide-x divide-slate-950 md:flex-row">
-      <CardList fetchedCards={cards} />
+    <div className="relative">
       {deckId ? (
-        <DeckManager id={deckId} goBack={() => setDeckId(null)} />
+        <>
+          <CardList fetchedCards={cards} />
+          <DeckManager id={deckId} goBack={() => setDeckId(null)} />
+        </>
       ) : (
         <DeckSelector onClick={(id) => setDeckId(id)} />
       )}

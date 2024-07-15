@@ -7,6 +7,7 @@ import { useAuth } from "@/util/auth-context";
 import ListIcon from "@/components/Icons/ListIcon";
 import GridIcon from "@/components/Icons/GridIcon";
 import LoadingSpinner from "@/app/cards/loading";
+import CloseIcon from "@/components/Icons/CloseIcon";
 
 const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
   id,
@@ -24,6 +25,7 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
   const [deckName, setDeckName] = useState<string>("");
   const [isListView, setIsListView] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+  const [infoCard, setInfoCard] = useState<Card | null>();
 
   useEffect(() => {
     const loadDeck = async () => {
@@ -51,8 +53,12 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
     );
   };
 
+  //overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:w-1/2 h-[50vh] absolute bg-red-200 right-4 bottom-2 rounded
+
+  console.log(infoCard);
+
   return (
-    <div className="h-[50vh] overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:w-1/2 md:h-screen">
+    <div className="overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:h-screen">
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -120,10 +126,26 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
                     card={card}
                     index={index}
                     isListView={isListView}
+                    onClick={() => setInfoCard(card)}
                   />
                 </Fragment>
               ))}
           </div>
+          {infoCard?.name && (
+            <div
+              className="absolute z-50 bg-red-500 p-24 transform -translate-x-1/2 -translate-y-1/2"
+              style={{ top: "50%", left: "50%" }}
+            >
+              <h1>{infoCard.name}</h1>
+              <h2>{infoCard.desc}</h2>
+              <button
+                className="p-2 absolute top-3 right-6"
+                onClick={() => setInfoCard(null)}
+              >
+                <CloseIcon />
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>

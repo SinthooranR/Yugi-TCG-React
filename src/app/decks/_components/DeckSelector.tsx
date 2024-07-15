@@ -36,7 +36,7 @@ const DeckSelector: FC<{ onClick: (id: number) => void }> = ({ onClick }) => {
   }, [user]);
 
   return (
-    <div className="h-[50vh] overflow-y-scroll w-full py-16 flex flex-col justify-start items-center border-left md:w-1/2 md:h-screen">
+    <div className="overflow-y-scroll w-full py-16 flex flex-col justify-start items-center border-left md:h-screen absolute">
       {loading ? (
         <LoadingSpinner />
       ) : (
