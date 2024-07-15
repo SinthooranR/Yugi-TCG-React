@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Card } from "../../../interfaces";
 import useStore from "@/store";
 import { getAttributeImage } from "@/util/constants";
@@ -12,6 +12,8 @@ const DeckViewCard: FC<{ card: Card; index: number; isListView: boolean }> = ({
   const { removeCard } = useStore((state) => ({
     removeCard: state.removeCard,
   }));
+
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   return (
     <>
@@ -37,13 +39,28 @@ const DeckViewCard: FC<{ card: Card; index: number; isListView: boolean }> = ({
           </button>
         </div>
       ) : (
-        <div className="minimalCardImageDeckContainer">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={card.imageUrl ?? card?.card_images[0]?.image_url}
-            alt={card.name}
-            className={"minimalCardImage"}
-          />
+        <div className="minimalCardContainer">
+          <div
+            className="minimalCardImageDeckContainer relative flex"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={card.imageUrl ?? card?.card_images[0]?.image_url}
+              alt={card.name}
+              className="cursor-pointer"
+            />
+            {isHovered && (
+              <button
+                className="border-2 border-slate-950 rounded-full bg-red-500 hover:bg-red-600 absolute -right-1 -top-2"
+                style={{ width: 30, height: 30 }}
+                onClick={() => removeCard(index)}
+              >
+                X
+              </button>
+            )}
+          </div>
         </div>
       )}
     </>

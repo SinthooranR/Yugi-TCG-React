@@ -17,7 +17,7 @@ const useStore = create<StoreState>()((set) => ({
       const sameIdCards = state.cards.filter((c) => c.id === card.id).length;
 
       if (state.cards.length < 60 && sameIdCards < 3) {
-        return { cards: [...state.cards, card] };
+        return { cards: [card, ...state.cards] };
       } else {
         state.cards.length >= 60
           ? "Maximum card limit reached (60)."

@@ -49,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <nav className="flex justify-center items-center py-5">
+    <nav className="flex md:flex-row flex-col justify-center items-center py-5 md:w-full wrap gap-4">
       <form onSubmit={(e) => filterSearch(e)} className="mr-4">
         <input
           type="text"
