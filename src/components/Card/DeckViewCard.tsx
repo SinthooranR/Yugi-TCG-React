@@ -10,19 +10,18 @@ const DeckViewCard: FC<{
   card: Card;
   index: number;
   isListView: boolean;
-  onClick: () => void;
-}> = ({ card, index, isListView, onClick }) => {
-  const { removeCard } = useStore((state) => ({
+}> = ({ card, index, isListView }) => {
+  const { removeCard, setInfoCard } = useStore((state) => ({
     removeCard: state.removeCard,
+    setInfoCard: state.setInfoCard,
   }));
 
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [showMore, setShowMore] = useState<boolean>(false);
 
   return (
     <>
       {isListView ? (
-        <div className="flex flex-row justify-evenly gap-4 items-center py-4">
+        <div className="flex flex-row justify-evenly gap-4 items-center py-4 animate-fadeIn">
           <div className="w-1/4">
             <Image
               src={getAttributeImage(card.attribute, card.frameType)}
@@ -35,16 +34,24 @@ const DeckViewCard: FC<{
           <h1 className="w-1/4">{card.name}</h1>
           <h1 className="w-1/4">{card.type}</h1>
 
-          <button
-            className="cursor-pointer w-1/4"
-            onClick={() => removeCard(index)}
-          >
-            X
-          </button>
+          <div className="flex gap-2 ">
+            <button
+              className="border-2 p-1 border-slate-950 rounded-full bg-blue-500 hover:bg-blue-600 "
+              onClick={() => setInfoCard(card)}
+            >
+              <InfoIcon />
+            </button>
+            <button
+              className="border-2 p-1 border-slate-950 rounded-full bg-red-500 hover:bg-red-600 "
+              onClick={() => removeCard(index)}
+            >
+              <CloseIcon />
+            </button>
+          </div>
         </div>
       ) : (
         <>
-          <div className="minimalCardContainer">
+          <div className="minimalCardContainer animate-fadeIn">
             <div
               className="minimalCardImageDeckContainer relative flex"
               onMouseOver={() => setIsHovered(true)}
@@ -57,7 +64,7 @@ const DeckViewCard: FC<{
                 className="cursor-pointer"
               />
               {isHovered && (
-                <div className="absolute -right-4 top-0 flex flex-col">
+                <div className="absolute -right-4 -top-2 flex flex-col animate-fadeIn">
                   <button
                     className="border-2 p-1 border-slate-950 rounded-full bg-red-500 hover:bg-red-600 "
                     onClick={() => removeCard(index)}
@@ -66,8 +73,8 @@ const DeckViewCard: FC<{
                   </button>
 
                   <button
-                    className="border-2 p-1 border-slate-950 rounded-full bg-blue-500 hover:bg-blue-600 "
-                    onClick={() => onClick()}
+                    className="border-2 p-1 border-slate-950 rounded-full bg-yellow-500 hover:bg-yellow-600 "
+                    onClick={() => setInfoCard(card)}
                   >
                     <InfoIcon />
                   </button>

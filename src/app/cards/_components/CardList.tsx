@@ -4,6 +4,8 @@ import React, { FC, Fragment, useState } from "react";
 import { Card } from "../../../../interfaces";
 import MinimalCard from "../../../components/Card";
 import Pagination from "./paginator";
+import DetailsModal from "@/components/Card/DetailsModal";
+import useStore from "@/store";
 
 const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,6 +28,10 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
     setCurrentPage(1);
   };
 
+  const { infoCard } = useStore((state) => ({
+    infoCard: state.infoCard,
+  }));
+
   return (
     <div className="py-12">
       <Pagination
@@ -43,6 +49,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
           </Fragment>
         ))}
       </div>
+      {infoCard?.name && <DetailsModal card={infoCard} />}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import ListIcon from "@/components/Icons/ListIcon";
 import GridIcon from "@/components/Icons/GridIcon";
 import LoadingSpinner from "@/app/cards/loading";
 import CloseIcon from "@/components/Icons/CloseIcon";
+import DetailsModal from "@/components/Card/DetailsModal";
 
 const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
   id,
@@ -15,17 +16,16 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
 }) => {
   const { user } = useAuth();
 
-  const { cards, setCards, addCard, removeCard } = useStore((state) => ({
+  const { cards, setCards, infoCard, deckView } = useStore((state) => ({
     cards: state.cards,
     setCards: state.setCards,
-    addCard: state.addCard,
-    removeCard: state.removeCard,
+    infoCard: state.infoCard,
+    deckView: state.deckView,
   }));
 
   const [deckName, setDeckName] = useState<string>("");
   const [isListView, setIsListView] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
-  const [infoCard, setInfoCard] = useState<Card | null>();
 
   useEffect(() => {
     const loadDeck = async () => {
@@ -55,10 +55,12 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
 
   //overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:w-1/2 h-[50vh] absolute bg-red-200 right-4 bottom-2 rounded
 
-  console.log(infoCard);
-
   return (
-    <div className="overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:h-screen">
+    <div
+      className={`overflow-y-scroll w-full py-12 flex flex-col justify-start items-center border-left md:h-screen ${
+        deckView && "h-[50vh]"
+      }`}
+    >
       {loading ? (
         <LoadingSpinner />
       ) : (
@@ -107,7 +109,7 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
               <div className="w-1/4">
                 <h1>Type</h1>
               </div>
-              <div className="w-1/4 text-center">
+              <div className="">
                 <h2>Cards: {cards.length}/60</h2>
               </div>
             </div>
@@ -126,26 +128,11 @@ const DeckManager: FC<{ id?: number; goBack: () => void }> = ({
                     card={card}
                     index={index}
                     isListView={isListView}
-                    onClick={() => setInfoCard(card)}
                   />
                 </Fragment>
               ))}
           </div>
-          {infoCard?.name && (
-            <div
-              className="absolute z-50 bg-red-500 p-24 transform -translate-x-1/2 -translate-y-1/2"
-              style={{ top: "50%", left: "50%" }}
-            >
-              <h1>{infoCard.name}</h1>
-              <h2>{infoCard.desc}</h2>
-              <button
-                className="p-2 absolute top-3 right-6"
-                onClick={() => setInfoCard(null)}
-              >
-                <CloseIcon />
-              </button>
-            </div>
-          )}
+          {infoCard?.name && <DetailsModal card={infoCard} />}
         </>
       )}
     </div>

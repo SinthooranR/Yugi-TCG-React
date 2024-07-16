@@ -18,6 +18,10 @@ const config: Config = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        fadeOut: {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0" },
+        },
         slideInLeft: {
           "0%": { transform: "translateX(-100%)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
@@ -29,6 +33,7 @@ const config: Config = {
       },
       animation: {
         fadeIn: "fadeIn 0.25s ease-in-out",
+        fadeOut: "fadeOut 0.25s ease-in-out",
         slideInLeft: "slideInLeft 0.25s ease-in-out",
         slideInRight: "slideInRight 0.25s ease-in-out",
       },
