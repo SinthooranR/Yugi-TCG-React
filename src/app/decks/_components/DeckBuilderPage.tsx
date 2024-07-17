@@ -15,6 +15,7 @@ const DeckBuilderPage: FC<{ cards: Card[] }> = ({ cards }) => {
         <>
           <div className="flex flex-col md:flex-row">
             <DeckManager id={deckId} goBack={() => setDeckId(null)} />
+
             <CardList fetchedCards={cards} />
           </div>
         </>

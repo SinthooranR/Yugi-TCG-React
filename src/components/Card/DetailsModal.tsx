@@ -30,7 +30,7 @@ const DetailsModal: FC<{ card: Card }> = ({ card }) => {
         onClick={() => setInfoCard(null)}
       ></div>
       <div
-        className="fixed z-50 bg-white p-24 w-3/4 md:w-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center gap-4 h-[90vh] overflow-y-auto scrollbar animate-fadeIn rounded-2xl"
+        className="fixed z-50 bg-white py-8 px-10 w-3/4 md:w-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-start items-center gap-4 h-[90vh] overflow-y-auto scrollbar animate-fadeIn rounded-2xl"
         style={{ top: "52%", left: "50%" }}
       >
         <h1 className="capitialize">{card.name}</h1>

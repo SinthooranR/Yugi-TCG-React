@@ -64,3 +64,8 @@ body {
   width: 0;
   height: 0;
 }
+
+.styled-scrollbar {
+  scrollbar-color: black transparent;
+  scrollbar-width: thin;
+}

@@ -44,7 +44,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
       {deckView ? (
         <>
           <div
-            className={`py-12 w-full h-[50vh] overflow-y-scroll  md:h-screen flex flex-col justify-center"`}
+            className={`py-12 w-full h-[40vh] overflow-y-scroll styled-scrollbar md:h-screen flex flex-col justify-center"`}
           >
             <h1 className="text-center pt-6 text-2xl">Card Directory</h1>
             <Pagination
@@ -65,7 +65,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
                 ))}
             </div>
             <button
-              className="fixed right-8 top-16 rounded-full cursor-pointer p-4 bg-yellow-500 hover:bg-yellow-600 z-50"
+              className=" hidden md:block fixed right-4 top-16 rounded-full cursor-pointer p-2 bg-yellow-500 hover:bg-yellow-600 z-50"
               onClick={() => splitDeckView(false)}
             >
               <CloseIcon />
@@ -74,7 +74,7 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
         </>
       ) : (
         <button
-          className="fixed right-8 top-16 rounded-full cursor-pointer p-4 bg-yellow-500 hover:bg-yellow-600 z-50"
+          className="hidden md:block fixed right-10 top-16 rounded-full cursor-pointer p-2 bg-yellow-500 hover:bg-yellow-600 z-50"
           onClick={() => splitDeckView(true)}
         >
           <AddIcon />

@@ -21,8 +21,8 @@ const DeckViewCard: FC<{
   return (
     <>
       {isListView ? (
-        <div className="flex flex-row justify-evenly gap-4 items-center py-4 animate-fadeIn">
-          <div className="w-1/4">
+        <div className="flex w-full flex-row justify-evenly gap-4 items-center py-4 animate-fadeIn">
+          <div className="w-1/3 md:w-1/4">
             <Image
               src={getAttributeImage(card.attribute, card.frameType)}
               height={40}
@@ -31,8 +31,8 @@ const DeckViewCard: FC<{
               quality={100}
             />
           </div>
-          <h1 className="w-1/4">{card.name}</h1>
-          <h1 className="w-1/4">{card.type}</h1>
+          <h1 className="w-1/3 md:w-1/4">{card.name}</h1>
+          <h1 className="w-1/3 md:w-1/4">{card.type}</h1>
 
           <div className="flex gap-2 ">
             <button
@@ -64,7 +64,7 @@ const DeckViewCard: FC<{
                 className="cursor-pointer"
               />
               {isHovered && (
-                <div className="absolute -right-4 -top-2 flex flex-col animate-fadeIn">
+                <div className="absolute -right-4 -top-2 flex flex-col animate-fadeIn z-40">
                   <button
                     className="border-2 p-1 border-slate-950 rounded-full bg-red-500 hover:bg-red-600 "
                     onClick={() => removeCard(index)}
