@@ -3,7 +3,7 @@ import React from "react";
 import { Post } from "../../../interfaces";
 import PostList from "./_components/PostList";
 
-const DiscussionPage = async () => {
+const TradingPage = async () => {
   const posts: Post[] = await getAllPosts();
   return (
     <div>
@@ -12,4 +12,4 @@ const DiscussionPage = async () => {
   );
 };
 
-export default DiscussionPage;
+export default TradingPage;

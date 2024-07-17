@@ -18,7 +18,7 @@ const Navbar = () => {
           <div className="flex gap-6">
             <Link href="/cards">Cards</Link>
             {user && <Link href="/decks">Decks</Link>}
-            <Link href="/threads">Threads</Link>
+            <Link href="/trading">Trading</Link>
           </div>
 
           <div className="flex gap-6">
