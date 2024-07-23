@@ -44,12 +44,29 @@ export interface Deck {
 
 export interface Post {
   id: number;
+  userId: string;
   name: string;
   description: string;
   createdAt: string;
   updatedAt: string;
-  replies: [];
-  postRatings: [];
+  replies: Reply[];
+  postRatings: PostRating[];
+}
+
+export interface PostRating {
+  id: number;
+  postId: number;
+  userId: string;
+  isThumbsUp?: boolean;
+}
+
+export interface Reply {
+  createdAt: string;
+  updatedAt: string;
+  id: number;
+  text: string;
+  postId: number;
+  userId: number;
 }
 
 export interface FilterEventData {

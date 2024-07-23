@@ -5,12 +5,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED =
 
 export const getAllPosts = async () => {
   try {
-    console.log(`${apiUrl}/api/Post`);
     const response = await fetch(`${apiUrl}/api/Post`, {
+      cache: "no-store",
       headers: {
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache",
-        Expires: "0",
+        "Content-Type": "application/json",
       },
     });
 
@@ -19,7 +17,6 @@ export const getAllPosts = async () => {
     }
 
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (e) {
     console.error("Error Fetching Posts:", e);

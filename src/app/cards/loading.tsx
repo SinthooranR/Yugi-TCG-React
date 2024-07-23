@@ -1,12 +1,15 @@
 import Image from "next/image";
-import React from "react";
+import React, { FC } from "react";
 
-const LoadingSpinner = () => {
+const LoadingSpinner: FC<{ height?: number; width?: number }> = ({
+  height,
+  width,
+}) => {
   return (
     <Image
       src={"/images/spinners/deckLoader.svg"}
-      height={60}
-      width={60}
+      height={height ?? 60}
+      width={width ?? 60}
       alt="Loader"
     />
   );

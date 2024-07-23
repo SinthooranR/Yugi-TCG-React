@@ -23,3 +23,27 @@ export const getAttributeImage = (attribute?: string, frameType?: string) => {
   }
   return `/images/icons/${imgVal}.svg`;
 };
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const offset = date.getTimezoneOffset();
+  let adjustedDate = new Date(date.getTime() - offset * 60 * 1000);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  };
+  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+    adjustedDate
+  );
+
+  const [datePart, timePart] = formattedDate.split(", ");
+  const [month, day, year] = datePart.split("/");
+  const [hoursMinutes, period] = timePart.split(" ");
+  const [hours, minutes] = hoursMinutes.split(":");
+
+  return `${year}-${month}-${day} at ${parseInt(hours)}:${minutes} ${period}`;
+};
