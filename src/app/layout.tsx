@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import { AuthProvider } from "@/util/auth-context";
 import Navbar from "@/components/Navbar";
+import { Suspense } from "react";
+import LoadingSpinner from "./cards/loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <Navbar />
-          {children}
+          <Suspense fallback={<LoadingSpinner />}>{children}</Suspense>
         </AuthProvider>
       </body>
     </html>

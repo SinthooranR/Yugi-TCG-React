@@ -1,8 +1,10 @@
 import { Card } from "../../interfaces";
+import delayCall from "./constants";
 import apiUrl from "./getApiPath";
 
 export const getDecksByUserId = async (userId?: string) => {
   try {
+    delayCall(2000);
     const response = await fetch(`${apiUrl}/api/Deck?userId=${userId}`);
 
     if (!response.ok) {
@@ -24,6 +26,7 @@ export const getDecksByUserId = async (userId?: string) => {
 
 export const getDecksById = async (deckId?: number) => {
   try {
+    delayCall(2000);
     const response = await fetch(`${apiUrl}/api/Deck/deckId?deckId=${deckId}`);
 
     if (!response.ok) {

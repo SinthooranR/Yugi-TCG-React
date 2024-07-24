@@ -7,11 +7,7 @@ import CardList from "./_components/CardList";
 // this is a Server Component based Page
 const CardPage = async () => {
   const cards: Card[] = await getAllCards();
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <CardList fetchedCards={cards} />
-    </Suspense>
-  );
+  return <CardList fetchedCards={cards} />;
 };
 
 export default CardPage;

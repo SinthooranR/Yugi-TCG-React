@@ -1,5 +1,14 @@
 export const apiUrlYtcg = `https://db.ygoprodeck.com/api/v7/cardinfo.php`;
 
+export default function delayCall(delay: number) {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Done!");
+    }, delay);
+  });
+  return promise;
+}
+
 export const propertiesToShow = [
   { key: "level", label: "Level" },
   { key: "atk", label: "Attack" },
@@ -45,5 +54,5 @@ export const formatDate = (dateString: string) => {
   const [hoursMinutes, period] = timePart.split(" ");
   const [hours, minutes] = hoursMinutes.split(":");
 
-  return `${year}-${month}-${day} at ${parseInt(hours)}:${minutes} ${period}`;
+  return `${month}/${day}/${year} at ${parseInt(hours)}:${minutes} ${period}`;
 };

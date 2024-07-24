@@ -6,11 +6,7 @@ import LoadingSpinner from "../cards/loading";
 
 const TradingPage = async () => {
   const posts: Post[] = await getAllPosts();
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <PostList posts={posts} />
-    </Suspense>
-  );
+  return <PostList posts={posts} />;
 };
 
 export default TradingPage;

@@ -1,7 +1,9 @@
-import { apiUrlYtcg } from "./constants";
+import delayCall, { apiUrlYtcg } from "./constants";
 
 export const getAllCards = async (variant?: boolean) => {
   try {
+    delayCall(2000);
+
     const response = await fetch(apiUrlYtcg, { cache: "no-store" });
 
     if (!response.ok) {
@@ -18,6 +20,7 @@ export const getAllCards = async (variant?: boolean) => {
 
 export const getCardById = async (id: number) => {
   try {
+    delayCall(2000);
     const response = await fetch(`${apiUrlYtcg}?id=${id}`, {
       cache: "no-store",
     });

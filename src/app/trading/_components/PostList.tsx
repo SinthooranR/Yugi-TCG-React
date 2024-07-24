@@ -10,7 +10,7 @@ const PostList: FC<{ posts: Post[] }> = ({ posts }) => {
   const { user } = useAuth();
 
   return (
-    <div className="flex pt-16 pb-4 flex-col justify-start items-center gap-6 w-full h-full">
+    <div className="flex pt-20 pb-4 flex-col justify-start items-center gap-6 w-full h-full animate-fadeIn">
       {posts &&
         posts.length > 0 &&
         posts.map((post) => (

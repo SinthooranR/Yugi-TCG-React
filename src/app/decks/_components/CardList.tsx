@@ -60,7 +60,11 @@ const CardList: FC<{ fetchedCards: Card[] }> = ({ fetchedCards }) => {
                 .slice(indexOfFirstCard, indexOfLastCard)
                 .map((card) => (
                   <Fragment key={card.id}>
-                    <MinimalCard card={card} className="" forDeck />
+                    <MinimalCard
+                      card={card}
+                      className="animate-fadeIn"
+                      forDeck
+                    />
                   </Fragment>
                 ))}
             </div>

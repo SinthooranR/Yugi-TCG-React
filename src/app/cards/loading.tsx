@@ -6,12 +6,14 @@ const LoadingSpinner: FC<{ height?: number; width?: number }> = ({
   width,
 }) => {
   return (
-    <Image
-      src={"/images/spinners/deckLoader.svg"}
-      height={height ?? 60}
-      width={width ?? 60}
-      alt="Loader"
-    />
+    <div className="pt-16 w-full flex justify-center">
+      <Image
+        src={"/images/spinners/deckLoader.svg"}
+        height={height ?? 60}
+        width={width ?? 60}
+        alt="Loader"
+      />
+    </div>
   );
 };
 

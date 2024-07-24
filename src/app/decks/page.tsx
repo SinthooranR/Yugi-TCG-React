@@ -6,11 +6,7 @@ import DeckBuilderPage from "./_components/DeckBuilderPage";
 
 const DecksPage = async () => {
   const cards: Card[] = await getAllCards();
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <DeckBuilderPage cards={cards} />
-    </Suspense>
-  );
+  return <DeckBuilderPage cards={cards} />;
 };
 
 export default DecksPage;
