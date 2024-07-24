@@ -6,54 +6,75 @@ import ThumbsIcon from "@/components/Icons/ThumbsIcon";
 import delayCall, { formatDate } from "@/util/constants";
 import { updatePostRating } from "@/util/discussionMethods";
 
+import * as signalR from "@microsoft/signalr";
+import apiUrl from "@/util/getApiPath";
+
 const PostItem: FC<{ post: Post; userId?: string }> = ({ post, userId }) => {
-  const currentRating = post.postRatings.find(
-    (rating) => rating.userId === userId
-  );
+  const [thumbs, setThumbs] = useState<boolean | null>(null);
+  const [ratings, setRatings] = useState(post.postRatings);
 
-  const [thumbs, setThumbs] = useState<boolean | null>(
-    currentRating?.isThumbsUp === true
-      ? true
-      : currentRating?.isThumbsUp === false
-      ? false
-      : null
-  );
-
-  const [loading, setLoading] = useState<boolean>(true);
-
+  //Used for SignalR setup
   useEffect(() => {
-    const updateRatings = () => {
-      delayCall(1000);
-      const currentRating = post.postRatings.find(
-        (rating) => rating.userId === userId
-      );
+    const connection = new signalR.HubConnectionBuilder()
+      .withAutomaticReconnect()
+      .withUrl(`${apiUrl}/postRatingHub`)
+      .build();
 
-      setThumbs(
-        currentRating?.isThumbsUp === true
-          ? true
-          : currentRating?.isThumbsUp === false
-          ? false
-          : null
-      );
+    connection.on(
+      "ReceiveRatingUpdate",
+      (ratingUpdate: {
+        postId: number;
+        userId: string;
+        isThumbsUp: boolean | null;
+      }) => {
+        if (ratingUpdate.postId === post.id) {
+          setRatings((prevRatings) => {
+            const newRatings = prevRatings.filter(
+              (rating) => rating.userId !== ratingUpdate.userId
+            );
+            if (ratingUpdate.isThumbsUp !== null) {
+              newRatings.push({
+                id: post.id,
+                postId: ratingUpdate.postId,
+                userId: ratingUpdate.userId,
+                isThumbsUp: ratingUpdate.isThumbsUp,
+              });
+            }
+            return newRatings;
+          });
 
-      setLoading(false);
+          if (ratingUpdate.userId === userId) {
+            setThumbs(ratingUpdate.isThumbsUp);
+          }
+        }
+      }
+    );
+
+    connection
+      .start()
+      .then(() => console.log("Connected to SignalR"))
+      .catch((err) => console.error("Error connecting to SignalR", err));
+
+    return () => {
+      connection.stop();
     };
+  }, [post.id, userId]);
 
-    updateRatings();
-  }, [post, userId]);
+  //Adjusts the initial state of the thumbs from the api call
+  useEffect(() => {
+    const currentRating = ratings.find((rating) => rating.userId === userId);
+    setThumbs(currentRating?.isThumbsUp ?? null);
+  }, [ratings, userId]);
 
   const updateThumb = async (type: "up" | "down") => {
     let newThumbs: boolean | null = null;
-    setThumbs((prevThumb) => {
-      if (type === "up") {
-        newThumbs = prevThumb === true ? null : true;
-      } else {
-        newThumbs = prevThumb === false ? null : false;
-      }
-      return newThumbs;
-    });
+    if (type === "up") {
+      newThumbs = thumbs === true ? null : true;
+    } else {
+      newThumbs = thumbs === false ? null : false;
+    }
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    setThumbs(newThumbs);
 
     await updatePostRating(post.id, newThumbs, userId);
   };
@@ -63,36 +84,28 @@ const PostItem: FC<{ post: Post; userId?: string }> = ({ post, userId }) => {
       <h1 className="text-2xl font-medium">{post.name}</h1>
       <p className="text-xl">{post.description}</p>
       <div className="flex justify-between bg-gray-100 rounded gap-4 px-2 py-2">
-        {loading ? (
-          <div className="text-black p-1">...</div>
-        ) : (
-          <>
-            <button
-              className={
-                thumbs && thumbs !== null
-                  ? `bg-slate-800 p-1 rounded flex gap-2`
-                  : `bg-transparent p-1 flex gap-2 text-black`
-              }
-              onClick={() => updateThumb("up")}
-            >
-              <ThumbsIcon isThumbsUp selected={thumbs === true} />
-              {post.postRatings.filter((pr) => pr.isThumbsUp === true).length ||
-                0}
-            </button>
-            <button
-              className={
-                !thumbs && thumbs !== null
-                  ? `bg-slate-800 p-1 rounded flex gap-2`
-                  : `bg-transparent p-1 flex gap-2 text-black`
-              }
-              onClick={() => updateThumb("down")}
-            >
-              <ThumbsIcon selected={thumbs === false} />
-              {post.postRatings.filter((pr) => pr.isThumbsUp === false)
-                .length || 0}
-            </button>
-          </>
-        )}
+        <button
+          className={
+            thumbs === true
+              ? `bg-slate-800 p-1 rounded flex gap-2`
+              : `bg-transparent p-1 flex gap-2 text-black`
+          }
+          onClick={() => updateThumb("up")}
+        >
+          <ThumbsIcon isThumbsUp selected={thumbs === true} />
+          {ratings.filter((pr) => pr.isThumbsUp === true).length || 0}
+        </button>
+        <button
+          className={
+            thumbs === false
+              ? `bg-slate-800 p-1 rounded flex gap-2`
+              : `bg-transparent p-1 flex gap-2 text-black`
+          }
+          onClick={() => updateThumb("down")}
+        >
+          <ThumbsIcon selected={thumbs === false} />
+          {ratings.filter((pr) => pr.isThumbsUp === false).length || 0}
+        </button>
       </div>
       <div>
         {new Date(post.updatedAt) > new Date(post.createdAt)
@@ -102,5 +115,4 @@ const PostItem: FC<{ post: Post; userId?: string }> = ({ post, userId }) => {
     </div>
   );
 };
-
 export default PostItem;
